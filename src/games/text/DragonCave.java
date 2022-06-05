@@ -38,6 +38,16 @@ public class DragonCave {
             + "He opens his jaws and...\n"
             + "Spits out treasure! Just for you!\n";
 
+    /**
+     * I wrote this one, not the original Dragon Cave author. If it's not as
+     * good as the other text, blame me, not the original author.
+     */
+    private static final String INDECISION_OUTCOME
+            = "Your failure to choose one of the two caves has caused\n"
+            + "something bad to happen regardless. I don't know, maybe a big\n"
+            + "hailstorm or whatever. And did I mention that it's freezing\n"
+            + "cold? You should have gone into a cave...";
+
     private enum CoinSide { HEADS, TAILS }
 
     private static CoinSide flip() {
@@ -53,13 +63,25 @@ public class DragonCave {
         System.out.println(INTRO);
         Scanner scanner = new Scanner(System.in);
         String line = scanner.next().replace(" ", "");
-        int number = Integer.parseInt(line) - 1;
-        CoinSide flipChoice = CoinSide.values()[number];
-        CoinSide flipOutcome = flip();
-        if (flipChoice.equals(flipOutcome)) {
-            System.out.println(FRIENDLY_DRAGON_OUTCOME);
-        } else {
-            System.out.println(UNFRIENDLY_DRAGON_OUTCOME);
+        int number = -1;
+        try {
+            number = Integer.parseInt(line);
+            CoinSide flipChoice = CoinSide.values()[number - 1];
+            CoinSide flipOutcome = flip();
+            if (flipChoice.equals(flipOutcome)) {
+                System.out.println(FRIENDLY_DRAGON_OUTCOME);
+            } else {
+                System.out.println(UNFRIENDLY_DRAGON_OUTCOME);
+            }
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            System.err.println("\n" + number + " is not a valid cave number");
+            System.err.println("System reports: \"" + aioobe.getMessage()
+                    + "\"");
+            System.out.println(INDECISION_OUTCOME);
+        } catch (NumberFormatException nfe) {
+            System.err.println("\nSystem reports: \"" + nfe.getMessage()
+                    + "\"");
+            System.out.println(INDECISION_OUTCOME);
         }
     }
 

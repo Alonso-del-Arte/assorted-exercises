@@ -1,5 +1,6 @@
 package games.text;
 
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -30,24 +31,35 @@ public class NumberGuessingGame {
         boolean guessedIt = false;
         while (guessCount < MAXIMUM_GUESS_COUNT && !guessedIt) {
             System.out.println("Take a guess.");
-            int guess = scanner.nextInt();
-            guessCount++;
-            int comparison = Integer.signum(Integer.compare(guess, number));
-            switch (comparison) {
-                case -1:
-                    System.out.println("Your guess is too low");
-                    break;
-                case 0:
-                    guessedIt = true;
-                    System.out.println("Good job, " + playerName
-                            + "! You guessed my number in " + guessCount + " guesses!");
-                    break;
-                case 1:
-                    System.out.println("Your guess is too high");
-                    break;
-                default:
-                    String excMsg = "Unexpected comparison " + comparison;
-                    throw new NoSuchElementException(excMsg);
+            try {
+                String possibleGuess = scanner.next();
+                guessCount++;
+                int guess = Integer.parseInt(possibleGuess);
+                int comparison = Integer.signum(Integer.compare(guess, number));
+                switch (comparison) {
+                    case -1:
+                        System.out.println("Your guess is too low");
+                        break;
+                    case 0:
+                        guessedIt = true;
+                        System.out.println("Good job, " + playerName
+                                + "! You guessed my number in " + guessCount
+                                + " guesses!");
+                        break;
+                    case 1:
+                        System.out.println("Your guess is too high");
+                        break;
+                    default:
+                        String excMsg = "Unexpected comparison " + comparison;
+                        throw new NoSuchElementException(excMsg);
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("I'm sorry, I don't understand "
+                        + nfe.getMessage());
+                int guessesLeft = MAXIMUM_GUESS_COUNT - guessCount + 1;
+                guessCount--;
+                System.out.println("No penalty, though, you still have "
+                        + guessesLeft + " guesses left");
             }
         }
         if (!guessedIt) {

@@ -48,14 +48,14 @@ public class DragonCave {
             + "hailstorm or whatever. And did I mention that it's freezing\n"
             + "cold? You should have gone into a cave...";
 
-    private enum CoinSide { HEADS, TAILS }
+    private enum SideOfCoin { HEADS, TAILS }
 
-    private static CoinSide flip() {
+    private static SideOfCoin flip() {
         double x = Math.random();
         if (x < 0.5) {
-            return CoinSide.HEADS;
+            return SideOfCoin.HEADS;
         } else {
-            return CoinSide.TAILS;
+            return SideOfCoin.TAILS;
         }
     }
 
@@ -66,8 +66,8 @@ public class DragonCave {
         int number = -1;
         try {
             number = Integer.parseInt(line);
-            CoinSide flipChoice = CoinSide.values()[number - 1];
-            CoinSide flipOutcome = flip();
+            SideOfCoin flipChoice = SideOfCoin.values()[number - 1];
+            SideOfCoin flipOutcome = flip();
             if (flipChoice.equals(flipOutcome)) {
                 System.out.println(FRIENDLY_DRAGON_OUTCOME);
             } else {

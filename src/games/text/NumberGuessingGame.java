@@ -1,25 +1,24 @@
 package games.text;
 
-import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class NumberGuessingGame {
 
-    public static final int MINIMUM_NUMBER = 1;
+    static final int MINIMUM_NUMBER = 1;
 
-    public static final int MAXIMUM_NUMBER = 20;
+    static final int MAXIMUM_NUMBER = 20;
 
-    public static final int SPAN = MAXIMUM_NUMBER - MINIMUM_NUMBER;
+    static final int SPAN = MAXIMUM_NUMBER - MINIMUM_NUMBER;
 
-    public static final int MAXIMUM_GUESS_COUNT = 6;
+    static final int MAXIMUM_GUESS_COUNT = 6;
 
     private static Scanner scanner;
 
     private static String playerName;
 
-    private static int thinkOfNumber() {
-        return (int) Math.floor(Math.random() * SPAN) + MINIMUM_NUMBER;
+    static int thinkOfNumber() {
+        return -20;// (int) Math.floor(Math.random() * SPAN) + MINIMUM_NUMBER;
     }
 
     private static void playRound() {

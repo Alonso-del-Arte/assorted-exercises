@@ -18,7 +18,7 @@ public class NumberGuessingGame {
     private static String playerName;
 
     static int thinkOfNumber() {
-        return -20;// (int) Math.floor(Math.random() * SPAN) + MINIMUM_NUMBER;
+        return (int) Math.floor(Math.random() * SPAN) + MINIMUM_NUMBER;
     }
 
     private static void playRound() {

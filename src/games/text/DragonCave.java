@@ -5,6 +5,9 @@
  */
 package games.text;
 
+import randomness.CoinSide;
+import randomness.Pseudorandom;
+
 import java.util.Scanner;
 
 /**
@@ -48,17 +51,6 @@ public class DragonCave {
             + "hailstorm or whatever. And did I mention that it's freezing\n"
             + "cold? You should have gone into a cave...";
 
-    private enum SideOfCoin { HEADS, TAILS }
-
-    private static SideOfCoin flip() {
-        double x = Math.random();
-        if (x < 0.5) {
-            return SideOfCoin.HEADS;
-        } else {
-            return SideOfCoin.TAILS;
-        }
-    }
-
     public static void main(String[] args) {
         System.out.println(INTRO);
         Scanner scanner = new Scanner(System.in);
@@ -66,8 +58,8 @@ public class DragonCave {
         int number = -1;
         try {
             number = Integer.parseInt(line);
-            SideOfCoin flipChoice = SideOfCoin.values()[number - 1];
-            SideOfCoin flipOutcome = flip();
+            CoinSide flipChoice = CoinSide.values()[number - 1];
+            CoinSide flipOutcome = Pseudorandom.flipCoin();
             if (flipChoice.equals(flipOutcome)) {
                 System.out.println(FRIENDLY_DRAGON_OUTCOME);
             } else {

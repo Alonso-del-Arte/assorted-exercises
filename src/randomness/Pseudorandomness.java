@@ -12,7 +12,7 @@ import java.util.Random;
  * as a fallback.
  * @author Alonso del Arte
  */
-class Pseudorandomness extends Random {
+class Pseudorandomness extends Random { // TODO: Change to extend ExpandedRandom
 
     private static final long serialVersionUID = 4553879963396210688L;
 

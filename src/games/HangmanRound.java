@@ -20,9 +20,11 @@ public class HangmanRound {
 private int count = 0;
     public boolean isPresent(char letter) {
         this.count++;
-        char[] letters = this.mysteryWord.toCharArray();
-        Arrays.fill(letters, count, letters.length, '_');
-        this.uncovered = new String(letters);
+        if (this.count < this.mysteryWord.length()) {
+            char[] letters = this.mysteryWord.toCharArray();
+            Arrays.fill(letters, count, letters.length, '_');
+            this.uncovered = new String(letters);
+        }
         return this.mysteryWord.indexOf(letter) > -1;
     }
 

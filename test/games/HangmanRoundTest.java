@@ -30,7 +30,8 @@ class HangmanRoundTest {
         for (char letter : letters) {
             String msg = "Letter '" + letter + "' should be in \"" + word
                     + "\"";
-            assert round.isPresent(letter) : msg;
+            boolean opResult = round.isPresent(letter);
+            assert opResult : msg;
         }
     }
 
@@ -41,7 +42,8 @@ class HangmanRoundTest {
         for (char letter = 'd'; letter < 123; letter++) {
             String msg = "Letter '" + letter + "' should NOT be in \"" + word
                     + "\"";
-            assert !round.isPresent(letter) : msg;
+            boolean opResult = round.isPresent(letter);
+            assert !opResult : msg;
         }
     }
 

@@ -47,5 +47,9 @@ still eat up guesses).
 
 ## Project 4: Revise Project 1 and Project 2 to have unit tests
 
-Haven't yet decided how I will go about this one. I haven't added tests 
-retroactively in a long time.
+This is a tough one. I haven't added tests retroactively in a long time.
+
+## Project 5: Hangman
+
+The classic word guessing game. See `games.graphical.Hangman` and 
+`games.text.Hangman`.

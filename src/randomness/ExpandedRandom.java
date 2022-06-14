@@ -1,6 +1,7 @@
 package randomness;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Random;
 
 public abstract class ExpandedRandom extends Random {
@@ -10,6 +11,12 @@ public abstract class ExpandedRandom extends Random {
     public abstract CoinSide flipCoin();
 
     public abstract String nextString();
+
+    public String nextWord() {
+        return this.nextWord(Locale.getDefault());
+    }
+
+    public abstract String nextWord(Locale locale);
 
     public abstract LocalDateTime nextDateTime();
 

@@ -1,9 +1,13 @@
 package games;
 
+import java.util.Random;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HangmanRoundTest {
+
+    private static final Random RANDOM = new Random();
 
     @Test
     void testSolvedSoFarAtBeginning() {
@@ -95,6 +99,35 @@ class HangmanRoundTest {
         HangmanRound round = new HangmanRound("example");
         String msg = "Round should not start out solved";
         assert !round.solved() : msg;
+    }
+
+    @Test
+    void testSolved() {
+        System.out.println("solved");
+        String word = "walkers";
+        HangmanRound round = new HangmanRound(word, 2 * word.length());
+        char[] letters = word.toCharArray();
+        for (char letter : letters) {
+            String msg = "Word \"" + word + "\" should have letter '" + letter
+                    + "'";
+            boolean opResult = round.isPresent(letter);
+            assert opResult : msg;
+        }
+        String msg = "After querying each letter, puzzle should be solved";
+        assert round.solved() : msg;
+    }
+
+    @Test
+    void testNumberOfGuessesLeftAtBeginning() {
+        int expected = RANDOM.nextInt(10) + 2;
+        HangmanRound round = new HangmanRound("example", expected);
+        int actual = round.guessesLeft();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testNumberOfGuessesEnforced() {
+        fail("Haven't written test yet");
     }
 
     @Test

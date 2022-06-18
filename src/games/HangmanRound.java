@@ -28,11 +28,16 @@ public class HangmanRound {
             }
         }
         this.uncovered = new String(letters);
+        this.hasBeenSolved = this.uncovered.equals(this.mysteryWord);
         return found;
     }
 
+    public int guessesLeft() {
+        return Integer.MIN_VALUE;
+    }
+
     public boolean solved() {
-        return true;
+        return this.hasBeenSolved;
     }
 
     public HangmanRound(String word) {

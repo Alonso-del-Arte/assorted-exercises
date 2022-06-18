@@ -67,13 +67,43 @@ class HangmanRoundTest {
         }
     }
 
+    /**
+     * Test of the solvedSoFar function. The test word ought to be a word in
+     * which the first letter occurs again at least once later in the word.
+     */
+    @Test
+    void testSolvedSoFar() {
+        System.out.println("solvedSoFar");
+        String word = "azaleas";
+        HangmanRound round = new HangmanRound(word);
+        char[] letters = word.toCharArray();
+        char firstLetter = letters[0];
+        String msg = "Letter '" + firstLetter + "' should be in word \"" + word
+                + "\"";
+        boolean opResult = round.isPresent(firstLetter);
+        assert opResult : msg;
+        for (int i = 1; i < letters.length; i++) {
+            if (letters[i] != firstLetter) letters[i] = '_';
+        }
+        String expected = new String(letters);
+        String actual = round.solvedSoFar();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testNotSolvedYet() {
+        HangmanRound round = new HangmanRound("example");
+        String msg = "Round should not start out solved";
+        assert !round.solved() : msg;
+    }
+
     @Test
     void testConstructorRejectsNullString() {
         Throwable t = assertThrows(NullPointerException.class, () -> {
             HangmanRound badRound = new HangmanRound(null);
             System.out.println("Should not have been able to create " + badRound
                     + " with null String as the mystery word");
-        }, "Constructor should reject \"\"");
+        }, "Constructor should reject null");
         String excMsg = t.getMessage();
         assert excMsg != null : "Message should not be null";
         System.out.println("\"" + excMsg + "\"");

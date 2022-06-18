@@ -10,22 +10,29 @@ public class HangmanRound {
 
     private final String mysteryWord;
 
-    private boolean solved = false;
+    private boolean hasBeenSolved = false;
 
     private String uncovered;
 
     public String solvedSoFar() {
         return this.uncovered;
     }
-private int count = 0;
+
     public boolean isPresent(char letter) {
-        this.count++;
-        if (this.count < this.mysteryWord.length()) {
-            char[] letters = this.mysteryWord.toCharArray();
-            Arrays.fill(letters, count, letters.length, '_');
-            this.uncovered = new String(letters);
+        boolean found = false;
+        char[] letters = this.uncovered.toCharArray();
+        for (int i = 0; i < this.mysteryWord.length(); i++) {
+            if (this.mysteryWord.charAt(i) == letter) {
+                found = true;
+                letters[i] = letter;
+            }
         }
-        return this.mysteryWord.indexOf(letter) > -1;
+        this.uncovered = new String(letters);
+        return found;
+    }
+
+    public boolean solved() {
+        return true;
     }
 
     public HangmanRound(String word) {

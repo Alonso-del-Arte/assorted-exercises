@@ -42,7 +42,7 @@ class HangmanRoundTest {
     @Test
     void testIsNotPresent() {
         String word = "cab";
-        HangmanRound round = new HangmanRound(word);
+        HangmanRound round = new HangmanRound(word, 26);
         for (char letter = 'd'; letter < 123; letter++) {
             String msg = "Letter '" + letter + "' should NOT be in \"" + word
                     + "\"";
@@ -105,13 +105,17 @@ class HangmanRoundTest {
     void testSolved() {
         System.out.println("solved");
         String word = "walkers";
-        HangmanRound round = new HangmanRound(word, 2 * word.length());
+        HangmanRound round = new HangmanRound(word, word.length());
         char[] letters = word.toCharArray();
         for (char letter : letters) {
-            String msg = "Word \"" + word + "\" should have letter '" + letter
+            String notYetSolvedMsg = "With letters still missing in \""
+                    + round.solvedSoFar()
+                    + "\", puzzle should not yet be solved";
+            assert !round.solved() : notYetSolvedMsg;
+            String letterMsg = "Word \"" + word + "\" should have letter '" + letter
                     + "'";
             boolean opResult = round.isPresent(letter);
-            assert opResult : msg;
+            assert opResult : letterMsg;
         }
         String msg = "After querying each letter, puzzle should be solved";
         assert round.solved() : msg;
@@ -126,8 +130,34 @@ class HangmanRoundTest {
     }
 
     @Test
+    void testGuessesLeft() {
+        System.out.println("guessesLeft");
+        int chances = RANDOM.nextInt(10) + 2;
+        HangmanRound round = new HangmanRound("example", chances);
+        for (int expected = chances; expected > 0; expected--) {
+            int actual = round.guessesLeft();
+            assertEquals(expected, actual);
+            round.isPresent('a');
+        }
+    }
+
+    @Test
     void testNumberOfGuessesEnforced() {
-        fail("Haven't written test yet");
+        int chances = RANDOM.nextInt(10) + 2;
+        HangmanRound round = new HangmanRound("example", chances);
+        for (int guessesLeft = chances; guessesLeft > 0; guessesLeft--) {
+            round.isPresent('a');
+        }
+        String msg = "One more chance than allowed should cause exception";
+        Throwable t = assertThrows(IllegalStateException.class, () -> {
+            round.isPresent('z');
+            System.out.println("Should not have been able to use "
+                    + (chances + 1) + " chances when only " + chances
+                    + " chances were given");
+        }, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Message should not be null";
+        System.out.println("\"" + excMsg + "\"");
     }
 
     @Test

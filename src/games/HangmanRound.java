@@ -14,11 +14,17 @@ public class HangmanRound {
 
     private String uncovered;
 
+    private int usedChances = 0;
+
     public String solvedSoFar() {
         return this.uncovered;
     }
 
     public boolean isPresent(char letter) {
+        if (this.usedChances == this.totalChances) {
+            String excMsg = this.totalChances + " chances already used up";
+            throw new IllegalStateException(excMsg);
+        }
         boolean found = false;
         char[] letters = this.uncovered.toCharArray();
         for (int i = 0; i < this.mysteryWord.length(); i++) {
@@ -29,11 +35,12 @@ public class HangmanRound {
         }
         this.uncovered = new String(letters);
         this.hasBeenSolved = this.uncovered.equals(this.mysteryWord);
+        this.usedChances++;
         return found;
     }
 
     public int guessesLeft() {
-        return Integer.MIN_VALUE;
+        return this.totalChances - this.usedChances;
     }
 
     public boolean solved() {

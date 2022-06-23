@@ -46,6 +46,7 @@ class SinglePressKeyboardTest implements ActionListener {
     @Test
     void testLetterButtonsHaveMatchingMnemonics() {
         SinglePressKeyboard keyboard = new SinglePressKeyboard(QWERTY, this);
+        fail("Rethink this test");
         for (JButton button : keyboard.buttons) {
             String expected = button.getText();
             String actual = Character.toString((char) button.getMnemonic());

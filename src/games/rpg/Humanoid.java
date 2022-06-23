@@ -1,4 +1,4 @@
 package games.rpg;
 
-public class Humanoid {
+public abstract class Humanoid {
 }

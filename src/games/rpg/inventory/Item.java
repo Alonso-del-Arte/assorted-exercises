@@ -1,4 +1,4 @@
 package games.rpg.inventory;
 
-public class Item {
+public abstract class Item {
 }

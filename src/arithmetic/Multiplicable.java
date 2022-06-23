@@ -1,4 +1,9 @@
 package arithmetic;
 
-public class Multiplicable {
+public interface Multiplicable<T> extends Summable<T> {
+
+    T times(T multiplicand);
+
+    T times(int multiplicand);
+
 }

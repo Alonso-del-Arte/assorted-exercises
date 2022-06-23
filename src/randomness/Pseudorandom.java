@@ -3,6 +3,12 @@ package randomness;
 import java.util.Random;
 
 // TODO: Write static wrappers for Pseudorandomness's functions
+
+/**
+ * Provides an easy way to access <code>Pseudorandomness</code> functions
+ * without having to create a new instance each time.
+ * @author Alonso del Arte
+ */
 public class Pseudorandom {
 
     private static final Random RANDOM = new Random();
@@ -171,6 +177,11 @@ public class Pseudorandom {
     // TODO: Change this to use external API through Pseudorandomness
     public static int nextInt(int bound) {
         return RANDOM.nextInt(bound);
+    }
+
+    // TODO: Write tests for this
+    public static String nextWord() {
+        return "Not implemented yet";
     }
 
     public static CoinSide flipCoin() {

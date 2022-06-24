@@ -9,10 +9,18 @@ public class Position {
         return "(" + this.coordX + ", " + this.coordY + ")";
     }
 
-    // TODO: Write tests for this
     @Override
     public boolean equals(Object obj) {
-        return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        return this.coordX == ((Position) obj).coordX;
     }
 
     // TODO: Write tests for this

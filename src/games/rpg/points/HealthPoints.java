@@ -1,4 +1,4 @@
-package games.rpg;
+package games.rpg.points;
 
 public class HealthPoints {
 }

@@ -20,18 +20,18 @@ public class Position {
         if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
-        return this.coordX == ((Position) obj).coordX;
+        Position other = (Position) obj;
+        return this.coordX == other.coordX && this.coordY == other.coordY;
     }
 
-    // TODO: Write tests for this
     @Override
     public int hashCode() {
-        return 0;
+        return (this.coordX << 16) + this.coordY;
     }
 
-    // TODO: Write tests for this
     public Position offset(RelativePosition adjustment) {
-        return this;
+        return new Position(this.coordX + adjustment.offsetX,
+                this.coordY + adjustment.offsetY);
     }
 
     public Position(int x, int y) {

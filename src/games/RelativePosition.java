@@ -4,7 +4,7 @@ import arithmetic.Summable;
 
 public class RelativePosition implements Summable<RelativePosition> {
 
-    private final int offsetX, offsetY;
+    final int offsetX, offsetY;
 
     @Override
     public String toString() {

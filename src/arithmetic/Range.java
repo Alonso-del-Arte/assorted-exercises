@@ -73,15 +73,15 @@ public class Range implements Iterable<Integer> {
         };
     }
 
-    @Override
-    public String toString() {
-        String fromAndTo = this.begin + " to " + this.finish;
-        if (this.interval == 1) {
-            return fromAndTo;
-        } else {
-            return fromAndTo + " by " + this.interval;
-        }
-    }
+//    @Override
+//    public String toString() {
+//        String fromAndTo = this.begin + " to " + this.finish;
+//        if (this.interval == 1) {
+//            return fromAndTo;
+//        } else {
+//            return fromAndTo + " by " + this.interval;
+//        }
+//    }
 
     // TODO: Write tests for this
     @Override
@@ -95,10 +95,8 @@ public class Range implements Iterable<Integer> {
         return 0;
     }
 
-    // TODO: Write tests for this chained constructor
-    // It should infer a step of +/-1.
     public Range(int start, int end) {
-        this(start, end, 0);
+        this(start, end, Integer.signum(end - start));
     }
 
     // TODO: Write tests for this constructor

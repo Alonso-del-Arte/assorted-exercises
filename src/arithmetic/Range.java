@@ -49,9 +49,8 @@ public class Range implements Iterable<Integer> {
         return this;
     }
 
-    // TODO: Write tests for this
     public boolean contains(int number) {
-        return false;
+        return this.begin <= number && number <= this.finish;
     }
 
     @Override
@@ -73,15 +72,15 @@ public class Range implements Iterable<Integer> {
         };
     }
 
-//    @Override
-//    public String toString() {
-//        String fromAndTo = this.begin + " to " + this.finish;
-//        if (this.interval == 1) {
-//            return fromAndTo;
-//        } else {
-//            return fromAndTo + " by " + this.interval;
-//        }
-//    }
+    @Override
+    public String toString() {
+        String fromAndTo = this.begin + " to " + this.finish;
+        if (this.interval == 1) {
+            return fromAndTo;
+        } else {
+            return fromAndTo + " by " + this.interval;
+        }
+    }
 
     // TODO: Write tests for this
     @Override

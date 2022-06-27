@@ -2,7 +2,8 @@ package games.rpg.points;
 
 import arithmetic.Summable;
 
-public class MagicPoints implements Summable<MagicPoints> {
+public class MagicPoints implements Comparable<MagicPoints>,
+        Summable<MagicPoints> {
 
     /**
      * Minimum magic points (maximum deduction).
@@ -23,6 +24,11 @@ public class MagicPoints implements Summable<MagicPoints> {
 
     public int getNumber() {
         return this.points;
+    }
+
+    @Override
+    public int compareTo(MagicPoints mp) {
+        return 0;
     }
 
     @Override

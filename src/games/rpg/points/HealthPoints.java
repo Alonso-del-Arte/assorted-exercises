@@ -2,7 +2,8 @@ package games.rpg.points;
 
 import arithmetic.Summable;
 
-public class HealthPoints implements Summable<HealthPoints> {
+public class HealthPoints implements Comparable<HealthPoints>,
+        Summable<HealthPoints> {
 
     /**
      * Minimum health points (maximum deduction).
@@ -23,6 +24,11 @@ public class HealthPoints implements Summable<HealthPoints> {
 
     public int getNumber() {
         return this.points;
+    }
+
+    @Override
+    public int compareTo(HealthPoints hp) {
+        return 0;
     }
 
     @Override

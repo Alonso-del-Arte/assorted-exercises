@@ -1,5 +1,9 @@
 package games.rpg.points;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +17,28 @@ class HealthPointsTest {
         int expected = Pseudorandom.nextInt(HealthPoints.MAXIMUM_POINTS);
         HealthPoints hp = new HealthPoints(expected);
         int actual = hp.getNumber();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testCompareTo() {
+        System.out.println("compareTo");
+        int capacity = 10;
+        List<Integer> numbers = new ArrayList<>(capacity);
+        List<HealthPoints> actual = new ArrayList<>(capacity);
+        int halfMax = HealthPoints.MAXIMUM_POINTS / 2;
+        for (int i = 0; i < capacity; i++) {
+            int number = Pseudorandom.nextInt(HealthPoints.MAXIMUM_POINTS
+                    - halfMax - i);
+            numbers.add(number);
+            actual.add(new HealthPoints(number));
+        }
+        Collections.sort(numbers);
+        List<HealthPoints> expected = new ArrayList<>(capacity);
+        for (int n : numbers) {
+            expected.add(new HealthPoints(n));
+        }
+        Collections.sort(actual);
         assertEquals(expected, actual);
     }
 
@@ -33,6 +59,16 @@ class HealthPointsTest {
                 + sum + ", likewise HP " + pointsB + " + HP " + pointsA;
         assertEquals(expected, actual, msg);
         assertEquals(actual, commutative, msg);
+    }
+
+    @Test
+    void testToString() {
+        System.out.println("toString");
+        int n = Pseudorandom.nextInt(HealthPoints.MAXIMUM_POINTS);
+        HealthPoints points = new HealthPoints(n);
+        String expected = "HP " + n;
+        String actual = points.toString();
+        assertEquals(expected, actual);
     }
 
     @Test

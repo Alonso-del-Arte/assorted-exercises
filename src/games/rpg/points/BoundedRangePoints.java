@@ -1,22 +1,34 @@
 package games.rpg.points;
 
-import arithmetic.Range;
+// TODO: Figure out elegant way to use type system so that HealthPoints and
+//  MagicPoints don't need to implement Comparable or Summable directly
+public abstract class BoundedRangePoints {
 
-// TODO: Figure out elegant way to use type system so that this is an efficient
-//  superclass to HealthPoints and MagicPoints
-public abstract class BoundedRangePoints<T extends BoundedRangePoints<T>> {
+    final int points;
 
-    final int score;
+//    abstract Range getRange();
 
-    abstract Range getRange();
-
-    // TODO: Write tests for this
-    public <S extends BoundedRangePoints<S>> S plus(T addend) {
-        return (S) this;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        return this.points == ((BoundedRangePoints) obj).points;
     }
 
-    BoundedRangePoints(int points) {
-        this.score = points;
+    @Override
+    public int hashCode() {
+        return this.getClass().getSimpleName().hashCode() + this.points;
+    }
+
+    BoundedRangePoints(int pts) {
+        this.points = pts;
     }
 
 }

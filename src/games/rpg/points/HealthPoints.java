@@ -2,8 +2,8 @@ package games.rpg.points;
 
 import arithmetic.Summable;
 
-public class HealthPoints implements Comparable<HealthPoints>,
-        Summable<HealthPoints> {
+public class HealthPoints extends BoundedRangePoints
+        implements Comparable<HealthPoints>, Summable<HealthPoints> {
 
     /**
      * Minimum health points (maximum deduction).
@@ -20,15 +20,13 @@ public class HealthPoints implements Comparable<HealthPoints>,
      */
     public static final int MAXIMUM_POINTS = 100;
 
-    private final int points;
-
     public int getNumber() {
         return this.points;
     }
 
     @Override
     public int compareTo(HealthPoints hp) {
-        return 0;
+        return Integer.compare(this.points, hp.points);
     }
 
     @Override
@@ -36,13 +34,18 @@ public class HealthPoints implements Comparable<HealthPoints>,
         return new HealthPoints(this.points + addend.points);
     }
 
+    @Override
+    public String toString() {
+        return "HP " + this.points;
+    }
+
     public HealthPoints(int pts) {
+        super(pts);
         if (pts < MINIMUM_POINTS || pts > MAXIMUM_POINTS) {
             String excMsg = pts + " is outside the range " + MINIMUM_POINTS
                     + " to " + MAXIMUM_POINTS;
             throw new IllegalArgumentException(excMsg);
         }
-        this.points = pts;
     }
 
 }

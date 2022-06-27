@@ -1,5 +1,9 @@
 package games.rpg.points;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +17,28 @@ class MagicPointsTest {
         int expected = Pseudorandom.nextInt(MagicPoints.MAXIMUM_POINTS);
         MagicPoints mp = new MagicPoints(expected);
         int actual = mp.getNumber();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testCompareTo() {
+        System.out.println("compareTo");
+        int capacity = 10;
+        List<Integer> numbers = new ArrayList<>(capacity);
+        List<MagicPoints> actual = new ArrayList<>(capacity);
+        int halfMax = MagicPoints.MAXIMUM_POINTS / 2;
+        for (int i = 0; i < capacity; i++) {
+            int number = Pseudorandom.nextInt(MagicPoints.MAXIMUM_POINTS
+                    - halfMax - i);
+            numbers.add(number);
+            actual.add(new MagicPoints(number));
+        }
+        Collections.sort(numbers);
+        List<MagicPoints> expected = new ArrayList<>(capacity);
+        for (int n : numbers) {
+            expected.add(new MagicPoints(n));
+        }
+        Collections.sort(actual);
         assertEquals(expected, actual);
     }
 
@@ -33,6 +59,16 @@ class MagicPointsTest {
                 + sum + ", likewise MP " + pointsB + " + MP " + pointsA;
         assertEquals(expected, actual, msg);
         assertEquals(actual, commutative, msg);
+    }
+
+    @Test
+    void testToString() {
+        System.out.println("toString");
+        int n = Pseudorandom.nextInt(MagicPoints.MAXIMUM_POINTS);
+        MagicPoints points = new MagicPoints(n);
+        String expected = "MP " + n;
+        String actual = points.toString();
+        assertEquals(expected, actual);
     }
 
     @Test

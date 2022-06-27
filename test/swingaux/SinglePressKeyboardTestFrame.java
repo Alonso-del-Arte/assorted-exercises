@@ -14,13 +14,12 @@ public final class SinglePressKeyboardTestFrame extends JFrame
 
     public static final int DEFAULT_COLUMN_WIDTH = 20;
 
-    private SinglePressKeyboard keyboard;
-
-    private JTextField textField;
+    private final JTextField textField;
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        //
+        String fieldText = this.textField.getText() + ae.getActionCommand();
+        this.textField.setText(fieldText);
     }
 
     public SinglePressKeyboardTestFrame() {
@@ -29,8 +28,8 @@ public final class SinglePressKeyboardTestFrame extends JFrame
         this.textField = new JTextField(DEFAULT_COLUMN_WIDTH);
         this.textField.setEditable(false);
         this.add(this.textField, BorderLayout.PAGE_START);
-        this.keyboard = new SinglePressKeyboard(this);
-        this.add(this.keyboard, BorderLayout.CENTER);
+        SinglePressKeyboard keyboard = new SinglePressKeyboard(this);
+        this.add(keyboard, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

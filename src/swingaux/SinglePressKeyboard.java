@@ -3,7 +3,7 @@ package swingaux;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +19,9 @@ public final class SinglePressKeyboard extends JPanel
     List<JButton> buttons = new ArrayList<>();
 
     private final ActionListener actListen;
+
+    final PhysicalKeyboardListener physKbdListen
+            = new PhysicalKeyboardListener();
 
     public void reset() {
         //
@@ -36,7 +39,6 @@ public final class SinglePressKeyboard extends JPanel
     private JButton makeButton(char ch) {
         String letter = Character.toString(ch);
         JButton button = new JButton(letter);
-        button.setMnemonic(ch);
         button.addActionListener(this);
         this.buttons.add(button);
         return button;
@@ -59,6 +61,12 @@ public final class SinglePressKeyboard extends JPanel
         super(new GridLayout(3, 12));
         this.addButtons(keys);
         this.actListen = listener;
+    }
+
+    class PhysicalKeyboardListener extends KeyAdapter {
+
+        private PhysicalKeyboardListener() {}
+
     }
 
 }

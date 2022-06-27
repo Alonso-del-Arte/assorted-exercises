@@ -4,10 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.junit.jupiter.api.Test;
@@ -44,14 +48,20 @@ class SinglePressKeyboardTest implements ActionListener {
     }
 
     @Test
-    void testLetterButtonsHaveMatchingMnemonics() {
+    void testLetterOnscreenButtonsRespondToPhysicalButtons() {
         SinglePressKeyboard keyboard = new SinglePressKeyboard(QWERTY, this);
-        fail("Rethink this test");
+        JFrame frame = new JFrame("For test purposes only");
         for (JButton button : keyboard.buttons) {
             String expected = button.getText();
-            String actual = Character.toString((char) button.getMnemonic());
-            String msg = "Mnemonic for button " + expected + " should be "
-                    + expected;
+            char ch = expected.charAt(0);
+            KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_PRESSED,
+                    System.currentTimeMillis(), 0, ch, ch);
+            keyboard.physKbdListen.keyPressed(event);
+            assert this.mostRecentEvent != null
+                    : "Most recent event should not be null at this point";
+            String actual = this.mostRecentEvent.getActionCommand();
+            String msg = "Pressing '" + expected
+                    + "' key on physical keyboard should relay that key";
             assertEquals(expected, actual, msg);
         }
     }

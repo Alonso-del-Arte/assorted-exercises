@@ -2,6 +2,10 @@ package games.rpg.inventory;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test of the Weapon class.
+ * @author Alonso del Arte
+ */
 class WeaponTest {
 
     @Test

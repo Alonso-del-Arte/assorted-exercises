@@ -1,4 +1,4 @@
 package games.rpg;
 
-public abstract class Humanoid {
+public abstract class Humanoid implements LandSquareOccupying {
 }

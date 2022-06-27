@@ -1,4 +1,6 @@
 package games.rpg.inventory;
 
-public class TreasureChest {
+import games.rpg.LandSquareOccupying;
+
+public class TreasureChest implements LandSquareOccupying {
 }

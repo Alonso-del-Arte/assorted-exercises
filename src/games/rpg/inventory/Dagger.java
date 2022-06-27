@@ -1,4 +1,4 @@
 package games.rpg.inventory;
 
-public class Dagger {
+public class Dagger extends Weapon {
 }

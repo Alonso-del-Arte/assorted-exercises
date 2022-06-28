@@ -16,6 +16,8 @@ public final class SinglePressKeyboardTestFrame extends JFrame
 
     private final JTextField textField;
 
+    final SinglePressKeyboard keyboard;
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         String fieldText = this.textField.getText() + ae.getActionCommand();
@@ -28,15 +30,18 @@ public final class SinglePressKeyboardTestFrame extends JFrame
         this.textField = new JTextField(DEFAULT_COLUMN_WIDTH);
         this.textField.setEditable(false);
         this.add(this.textField, BorderLayout.PAGE_START);
-        SinglePressKeyboard keyboard = new SinglePressKeyboard(this);
+        keyboard = new SinglePressKeyboard(this);
+        this.addKeyListener(keyboard.physKbdListen);
         this.add(keyboard, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
-        JFrame frame = new SinglePressKeyboardTestFrame();
+        SinglePressKeyboardTestFrame frame = new SinglePressKeyboardTestFrame();
         frame.pack();
         frame.setVisible(true);
+        frame.keyboard.setFocusable(true);
+        frame.keyboard.requestFocus();
     }
 
 }

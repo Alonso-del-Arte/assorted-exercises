@@ -4,8 +4,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,22 +21,31 @@ public final class SinglePressKeyboard extends JPanel
 
     List<JButton> buttons = new ArrayList<>();
 
+    private final String keyChars;
+
     private final ActionListener actListen;
 
-    final PhysicalKeyboardListener physKbdListen
-            = new PhysicalKeyboardListener();
+    public final KeyListener physKbdListen = new PhysicalKeyboardListener();
 
     public void reset() {
-        //
+        for (JButton button : this.buttons) {
+            button.setEnabled(true);
+        }
     }
 
     public void actionPerformed(ActionEvent ae) {
-        System.out.println(ae.getActionCommand()); // TODO: Delete this line after all tests pass
-        System.out.println(ae.getModifiers()); // TODO: Delete this line after all tests pass
         System.out.println(ae.getSource()); // TODO: Delete this line after all tests pass
-        ActionEvent event = new ActionEvent(this, ae.getID(),
-                ae.getActionCommand(), ae.getWhen(), ae.getModifiers());
+        String command = ae.getActionCommand();
+        ActionEvent event = new ActionEvent(this, ae.getID(), command,
+                ae.getWhen(), ae.getModifiers());
         this.actListen.actionPerformed(event);
+        List<JButton> matchingButtons = this.buttons.stream()
+                .filter(button -> button.getText().equals(command))
+                .collect(Collectors.toList());
+        for (JButton button : matchingButtons) {
+            button.setEnabled(false);
+        }
+        this.requestFocus();
     }
 
     private JButton makeButton(char ch) {
@@ -61,9 +73,22 @@ public final class SinglePressKeyboard extends JPanel
         super(new GridLayout(3, 12));
         this.addButtons(keys);
         this.actListen = listener;
+        this.keyChars = keys.replace("\n", "");
     }
 
-    class PhysicalKeyboardListener extends KeyAdapter {
+    private class PhysicalKeyboardListener extends KeyAdapter {
+
+        @Override
+        public void keyPressed(KeyEvent ke) {
+            char ch = ke.getKeyChar();
+            if (SinglePressKeyboard.this.keyChars.indexOf(ch) > -1
+                    && ke.getModifiers() == 0) {
+                ActionEvent event = new ActionEvent(ke.getSource(),
+                        ActionEvent.ACTION_PERFORMED,
+                        Character.toString(ke.getKeyChar()));
+                SinglePressKeyboard.this.actionPerformed(event);
+            }
+        }
 
         private PhysicalKeyboardListener() {}
 
